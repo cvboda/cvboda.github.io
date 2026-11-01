@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Camilo & Verónica</title>
+
+<!-- Vista previa para WhatsApp / redes sociales -->
+<meta property="og:title" content="Camilo & Verónica — ¡Abre el link que se viene un día muy especial y queremos compartirlo!" />
+<meta property="og:image" content="https://jcabo65.github.io/boda-camilo-vero/portada-whatsapp.png" />
+<meta property="og:url" content="https://jcabo65.github.io/boda-camilo-vero/invitacion.html" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --cream: #faf8f2;
+    --cream-deep: #eef1e6;
+    --ink: #33422f;
+    --ink-soft: #5f6f52;
+    --taupe: #2f3a28;
+    --gold: #8a9a6b;
+    --gold-deep: #55643f;
+    --green: #7c8562;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; max-width: 100%; overflow-x: hidden; }
+
+body {
+    font-family: "EB Garamond", Georgia, serif;
+    color: var(--ink);
+    background: var(--cream);
+    display: flex;
+    justify-content: center;
+    padding: 28px 16px;
+    -webkit-text-size-adjust: 100%;
+}
+
+@media (max-width: 380px) {
+    body { padding: 18px 10px; }
+    .card { padding: 36px 20px 0; }
+    .names { font-size: 32px; }
+    .date-panel { margin: 0 -20px 30px; padding: 18px 14px; gap: 12px; }
+    .date-num { font-size: 38px; }
+    .footer { margin: 40px -20px 0; }
+}
+
+.card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--cream);
+    background-image:
+        radial-gradient(circle at 15% 8%, rgba(138,154,107,0.12), transparent 40%),
+        radial-gradient(circle at 88% 92%, rgba(124,133,98,0.12), transparent 45%);
+    border: 1px solid #dce3d0;
+    padding: 50px 32px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ---------- Ramitas decorativas de esquina ---------- */
+
+.sprig {
+    position: absolute;
+    width: 78px;
+    height: 130px;
+    opacity: 0.9;
+    z-index: 1;
+}
+.sprig.tl { top: 10px; left: 10px; }
+.sprig.tr { top: 10px; right: 10px; transform: scaleX(-1); }
+.sprig.bl { bottom: 10px; left: 10px; transform: scaleY(-1); }
+.sprig.br { bottom: 10px; right: 10px; transform: scale(-1,-1); }
+
+/* ---------- Encabezado ---------- */
+
+.content { position: relative; z-index: 2; }
+
+.eyebrow {
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+}
+
+.names {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1.15;
+    color: var(--ink);
+}
+
+.glyph {
+    font-size: 20px;
+    color: var(--gold-deep);
+    margin: 10px 0 16px;
+}
+
+.subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 30px;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--ink);
+    margin: 6px auto 8px;
+    max-width: 300px;
+}
+
+.party-emoji {
+    display: inline-block;
+    font-size: 72px;
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    animation: partyBounce 2.4s ease-in-out infinite;
+}
+.party-emoji:active { transform: scale(1.35) rotate(-12deg); animation: none; }
+.party-emoji.pop { animation: partyPop .5s ease; }
+
+@keyframes partyBounce {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    20% { transform: translateY(-10px) rotate(-8deg); }
+    40% { transform: translateY(0) rotate(0); }
+    60% { transform: translateY(-6px) rotate(8deg); }
+    80% { transform: translateY(0) rotate(0); }
+}
+@keyframes partyPop {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.5) rotate(-15deg); }
+    100% { transform: scale(1); }
+}
+
+.party-hint {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--gold-deep);
+    margin-bottom: 28px;
+}
+
+.confetti-piece {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+    line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .party-emoji { animation: none; }
+}
+
+/* ---------- Foto polaroid vertical ---------- */
+
+.polaroid-wrap {
+    width: 220px;
+    margin: 0 auto 12px;
+    position: relative;
+}
+
+.polaroid {
+    background: #fffdf8;
+    padding: 12px 12px 26px;
+    box-shadow: 0 16px 34px rgba(74,56,38,0.24);
+    transform: rotate(-3.5deg);
+    position: relative;
+}
+
+.polaroid img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    display: block;
+}
+
+.washi {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    width: 90px;
+    height: 26px;
+    transform: translateX(-50%) rotate(3deg);
+    background: repeating-linear-gradient(45deg, #cfe0c2, #cfe0c2 6px, #b9cfa4 6px, #b9cfa4 12px);
+    opacity: 0.9;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+}
+
+.seal {
+    position: absolute;
+    bottom: -6px;
+    right: -16px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #8a9a6b, #4a5d3a 78%);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transform: rotate(10deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.seal svg { width: 24px; height: 24px; }
+
+/* ---------- Mensaje ---------- */
+
+.message {
+    font-size: 16px;
+    line-height: 1.85;
+    color: #445039;
+    max-width: 320px;
+    margin: 34px auto 30px;
+}
+
+/* ---------- Panel de fecha ---------- */
+
+.date-panel {
+    background: var(--taupe);
+    color: #f3ead9;
+    padding: 22px 20px;
+    margin: 0 -32px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    position: relative;
+    z-index: 2;
+}
+
+.date-num {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 46px;
+    line-height: 1;
+    color: #f3ead9;
+}
+
+.date-text {
+    text-align: left;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #c3d1ae;
+}
+
+.date-text .heart {
+    color: var(--gold);
+    font-size: 14px;
+}
+
+/* ---------- Título de fecha ---------- */
+
+.date-title {
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+}
+
+/* ---------- Invitado ---------- */
+
+.guest-label {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+}
+
+.guest {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 26px;
+    margin-bottom: 32px;
+    min-height: 32px;
+}
+
+.button {
+    display: inline-block;
+    padding: 15px 38px;
+    background: var(--ink);
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 1px;
+    border-radius: 2px;
+}
+
+.button:hover { background: var(--taupe); }
+
+.footer {
+    margin: 40px -32px 0;
+    background: var(--cream-deep);
+    padding: 24px 20px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--ink-soft);
+    position: relative;
+    z-index: 2;
+}
+
+
+/* ---------- Cuenta regresiva ---------- */
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: -8px 0 32px;
+}
+
+.cd-box {
+    min-width: 62px;
+    padding: 10px 6px 8px;
+    border: 1px solid #dce3d0;
+    background: var(--cream-deep);
+}
+
+.cd-num {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--ink);
+}
+
+.cd-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--ink-soft);
+    margin-top: 6px;
+}
+
+.countdown-done {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink);
+    margin: -8px 0 32px;
+}
+
+@media (max-width: 380px) {
+    .countdown { gap: 6px; }
+    .cd-box { min-width: 56px; }
+    .cd-num { font-size: 26px; }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <svg class="sprig tl" viewBox="0 0 78 130" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#8a9a6b" stroke-width="1.3" stroke-linecap="round">
+        <path d="M10 128 C 14 90, 22 55, 40 20"/>
+        <path d="M16 108 C 24 104, 30 99, 33 92" stroke="#7c8562"/>
+        <path d="M12 88 C 20 85, 26 80, 29 73" stroke="#7c8562"/>
+        <path d="M20 66 C 27 63, 32 58, 35 51" stroke="#7c8562"/>
+        <path d="M27 44 C 33 41, 37 37, 39 31" stroke="#7c8562"/>
+        <circle cx="40" cy="20" r="2.2" fill="#8a9a6b" stroke="none"/>
+        <circle cx="33" cy="92" r="1.8" fill="#9db07e" stroke="none"/>
+        <circle cx="29" cy="73" r="1.8" fill="#9db07e" stroke="none"/>
+        <circle cx="35" cy="51" r="1.8" fill="#9db07e" stroke="none"/>
+    </svg>
+
+    <svg class="sprig tr" viewBox="0 0 78 130" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#8a9a6b" stroke-width="1.3" stroke-linecap="round">
+        <path d="M10 128 C 14 90, 22 55, 40 20"/>
+        <path d="M16 108 C 24 104, 30 99, 33 92" stroke="#7c8562"/>
+        <path d="M12 88 C 20 85, 26 80, 29 73" stroke="#7c8562"/>
+        <path d="M20 66 C 27 63, 32 58, 35 51" stroke="#7c8562"/>
+        <path d="M27 44 C 33 41, 37 37, 39 31" stroke="#7c8562"/>
+        <circle cx="40" cy="20" r="2.2" fill="#8a9a6b" stroke="none"/>
+        <circle cx="33" cy="92" r="1.8" fill="#9db07e" stroke="none"/>
+        <circle cx="29" cy="73" r="1.8" fill="#9db07e" stroke="none"/>
+        <circle cx="35" cy="51" r="1.8" fill="#9db07e" stroke="none"/>
+    </svg>
+
+    <div class="content">
+
+        <div class="eyebrow">UNA INVITACIÓN ESPECIAL</div>
+
+        <div class="names">Camilo &amp; Verónica</div>
+        <div class="glyph">&#10087;</div>
+        <div class="party-emoji" id="party-emoji" role="button" tabindex="0" aria-label="Toca para celebrar">🎉</div>
+        <div class="subtitle">¡Acompáñennos a festejar nuestra boda!</div>
+        <div class="party-hint">TOCA EL EMOJI PARA CELEBRAR</div>
+
+        <div class="polaroid-wrap">
+            <div class="polaroid">
+                <div class="washi"></div>
+                <img src="https://jcabo65.github.io/boda-camilo-vero/foto.jpg" alt="Camilo y Verónica">
+                <div class="seal">
+                    <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="11" cy="15" r="6" fill="none" stroke="#f3ead9" stroke-width="1.3"/>
+                        <circle cx="19" cy="15" r="6" fill="none" stroke="#f3ead9" stroke-width="1.3"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="message">
+            Para nosotros, el éxito de este viaje no está solo en llegar juntos,
+            sino en tener a nuestra familia y amigos celebrándolo a nuestro lado.
+            Tenemos el gusto de invitar a:
+        </div>
+
+        <div class="guest" id="guest-name">Cargando...</div>
+
+        <div class="date-title">RECUERDA LA FECHA</div>
+        <div class="date-panel">
+            <div class="date-num">24</div>
+            <div class="date-text">ENERO<br><span class="heart">&#10084;</span> 2027</div>
+        </div>
+
+        <div class="countdown" id="countdown">
+            <div class="cd-box"><div class="cd-num" id="cd-days">--</div><div class="cd-label">DÍAS</div></div>
+            <div class="cd-box"><div class="cd-num" id="cd-hours">--</div><div class="cd-label">HORAS</div></div>
+            <div class="cd-box"><div class="cd-num" id="cd-mins">--</div><div class="cd-label">MIN</div></div>
+            <div class="cd-box"><div class="cd-num" id="cd-secs">--</div><div class="cd-label">SEG</div></div>
+        </div>
+
+        <a class="button" id="invitation-button" href="#">Ver mi invitación</a>
+
+        <div class="footer">
+            Con cariño, Camilo &amp; Verónica
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const GOOGLE_SCRIPT_URL =
+'https://script.google.com/macros/s/AKfycbwcTj_MoRKAioXtbtcT2zjrTvxzjEIIx20Vu9cNL7pK5uxlK_D1hizb8oTtY1QUOODy/exec';
+
+const urlParams = new URLSearchParams(window.location.search);
+// true = comportamiento anterior: si el enlace no trae ?id= se muestra la invitación 1.
+// false = si falta el ?id= no se muestra el nombre de nadie ni el botón de confirmar.
+const PERMITIR_SIN_ID = false;
+
+let id = urlParams.get('id');
+if (!id && PERMITIR_SIN_ID) { id = '1'; }
+
+if (!id) {
+    document.getElementById('guest-name').textContent = '¡Tú y tu familia!';
+    document.getElementById('invitation-button').style.display = 'none';
+} else fetch(GOOGLE_SCRIPT_URL + '?id=' + encodeURIComponent(id))
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error al conectar con Google Apps Script');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Respuesta de Google:', data);
+
+        if (data.nombre) {
+            document.getElementById('guest-name').textContent = data.nombre;
+            document.getElementById('invitation-button').href =
+                'https://jcabo65.github.io/boda-camilo-vero/rsvp2-boda.html?id=' + encodeURIComponent(id);
+        } else {
+            document.getElementById('guest-name').textContent = 'Invitado no encontrado';
+            document.getElementById('invitation-button').style.display = 'none';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('guest-name').textContent = 'No se pudo cargar la invitación';
+    });
+
+
+// ---------- Emoji de fiesta con confeti ----------
+(function () {
+    const emojis = ['🎉', '🥂', '💍', '🎊', '💐', '🕊️'];
+    const pieces = ['🎉', '🎊', '✨', '💚', '🌿', '🥂'];
+    const el = document.getElementById('party-emoji');
+    let index = 0;
+
+    function confetti(x, y) {
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        for (let i = 0; i < 28; i++) {
+            const p = document.createElement('span');
+            p.className = 'confetti-piece';
+            p.textContent = pieces[Math.floor(Math.random() * pieces.length)];
+            p.style.left = x + 'px';
+            p.style.top = y + 'px';
+            p.style.fontSize = (14 + Math.random() * 14) + 'px';
+            document.body.appendChild(p);
+            const angle = Math.random() * Math.PI * 2;
+            const dist = 60 + Math.random() * 130;
+            const dx = Math.cos(angle) * dist;
+            const dy = Math.sin(angle) * dist - 40;
+            const anim = p.animate([
+                { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+                { transform: 'translate(' + dx + 'px,' + dy + 'px) rotate(' + (Math.random() * 540 - 270) + 'deg)', opacity: 1, offset: 0.55 },
+                { transform: 'translate(' + (dx * 1.15) + 'px,' + (dy + 160) + 'px) rotate(' + (Math.random() * 720 - 360) + 'deg)', opacity: 0 }
+            ], { duration: 1100 + Math.random() * 600, easing: 'ease-out' });
+            anim.onfinish = () => p.remove();
+        }
+    }
+
+    function celebrate() {
+        index = (index + 1) % emojis.length;
+        el.textContent = emojis[index];
+        el.classList.remove('pop');
+        void el.offsetWidth; // reinicia la animación
+        el.classList.add('pop');
+        const r = el.getBoundingClientRect();
+        confetti(r.left + r.width / 2, r.top + r.height / 2);
+    }
+
+    el.addEventListener('click', celebrate);
+    el.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); celebrate(); }
+    });
+})();
+
+
+// ---------- Cuenta regresiva (24 de enero de 2027, 11:00 a. m. hora Colombia) ----------
+(function () {
+    const target = new Date('2027-01-24T11:00:00-05:00').getTime();
+    const box = document.getElementById('countdown');
+    const pad = n => String(n).padStart(2, '0');
+
+    function tick() {
+        const diff = target - Date.now();
+        if (diff <= 0) {
+            box.className = 'countdown-done';
+            box.textContent = '¡Hoy es el gran día!';
+            clearInterval(timer);
+            return;
+        }
+        const s = Math.floor(diff / 1000);
+        document.getElementById('cd-days').textContent = Math.floor(s / 86400);
+        document.getElementById('cd-hours').textContent = pad(Math.floor(s % 86400 / 3600));
+        document.getElementById('cd-mins').textContent = pad(Math.floor(s % 3600 / 60));
+        document.getElementById('cd-secs').textContent = pad(s % 60);
+    }
+    const timer = setInterval(tick, 1000);
+    tick();
+})();
+
+</script>
+
+</body>
+</html>
