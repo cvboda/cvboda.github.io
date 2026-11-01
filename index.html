@@ -481,8 +481,8 @@ if (!id) {
 // así que la barra de direcciones se queda en cvboda.github.io/?id=...
 document.getElementById('invitation-button').addEventListener('click', function (ev) {
     const destino = this.getAttribute('href');
-    if (!destino || destino === '#') return;
     ev.preventDefault();
+    if (!destino || destino === '#') return;
     const frame = document.createElement('iframe');
     frame.src = destino;
     frame.title = 'Confirmar asistencia';
