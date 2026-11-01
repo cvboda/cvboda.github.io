@@ -476,6 +476,31 @@ if (!id) {
     });
 
 
+// ---------- Abrir la confirmación sin cambiar la dirección ----------
+// La segunda parte se muestra encima, dentro de esta misma página,
+// así que la barra de direcciones se queda en cvboda.github.io/?id=...
+document.getElementById('invitation-button').addEventListener('click', function (ev) {
+    const destino = this.getAttribute('href');
+    if (!destino || destino === '#') return;
+    ev.preventDefault();
+    const frame = document.createElement('iframe');
+    frame.src = destino;
+    frame.title = 'Confirmar asistencia';
+    frame.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;border:0;background:#faf8f2;z-index:10000;';
+    frame.onload = function () {
+        try {
+            // El botón "volver" de la segunda parte cierra la capa y regresa a esta página
+            frame.contentWindow.exitInvitation = function () {
+                frame.remove();
+                document.body.style.overflow = '';
+            };
+        } catch (e) {}
+    };
+    document.body.style.overflow = 'hidden';
+    document.body.appendChild(frame);
+});
+
+
 // ---------- Emoji de fiesta con confeti ----------
 (function () {
     const emojis = ['🎉', '🥂', '💍', '🎊', '💐', '🕊️'];
