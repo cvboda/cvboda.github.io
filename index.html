@@ -7,8 +7,8 @@
 
 <!-- Vista previa para WhatsApp / redes sociales -->
 <meta property="og:title" content="Camilo & Verónica — ¡Abre el link que se viene un día muy especial y queremos compartirlo!" />
-<meta property="og:image" content="https://jcabo65.github.io/boda-camilo-vero/portada-whatsapp.png" />
-<meta property="og:url" content="https://jcabo65.github.io/boda-camilo-vero/invitacion.html" />
+<meta property="og:image" content="https://cvboda.github.io/portada-whatsapp.png" />
+<meta property="og:url" content="https://cvboda.github.io/" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
 
@@ -394,7 +394,7 @@ body {
         <div class="polaroid-wrap">
             <div class="polaroid">
                 <div class="washi"></div>
-                <img src="https://jcabo65.github.io/boda-camilo-vero/foto.jpg" alt="Camilo y Verónica">
+                <img src="foto.jpg" alt="Camilo y Verónica">
                 <div class="seal">
                     <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="11" cy="15" r="6" fill="none" stroke="#f3ead9" stroke-width="1.3"/>
@@ -464,7 +464,7 @@ if (!id) {
         if (data.nombre) {
             document.getElementById('guest-name').textContent = data.nombre;
             document.getElementById('invitation-button').href =
-                'https://jcabo65.github.io/boda-camilo-vero/rsvp2-boda.html?id=' + encodeURIComponent(id);
+                'rsvp2-boda.html?id=' + encodeURIComponent(id);
         } else {
             document.getElementById('guest-name').textContent = 'Invitado no encontrado';
             document.getElementById('invitation-button').style.display = 'none';
