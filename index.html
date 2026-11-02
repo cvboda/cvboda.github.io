@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -491,11 +490,21 @@ document.getElementById('invitation-button').addEventListener('click', function 
     frame.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;border:0;background:#faf8f2;z-index:10000;';
     frame.onload = function () {
         try {
-            // El botón "volver" de la segunda parte cierra la capa y regresa a esta página
-            frame.contentWindow.exitInvitation = function () {
+            // Los botones "Volver" y "Salir" de la segunda parte cierran la capa
+            // y regresan a esta página
+            const cerrar = function () {
                 frame.remove();
                 document.body.style.overflow = '';
             };
+            frame.contentWindow.exitInvitation = cerrar;
+            const doc = frame.contentDocument;
+            ['exit-btn', 'confirmation-exit-btn'].forEach(function (idBoton) {
+                const viejo = doc.getElementById(idBoton);
+                if (!viejo) return;
+                const nuevo = viejo.cloneNode(true);
+                viejo.replaceWith(nuevo);
+                nuevo.addEventListener('click', cerrar);
+            });
         } catch (e) {}
     };
     document.body.style.overflow = 'hidden';
