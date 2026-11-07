@@ -118,15 +118,38 @@ body {
 }
 
 .party-emoji {
+    position: relative;
     display: inline-block;
+    width: 118px;
+    height: 118px;
+    margin: 12px 0 14px;
+    line-height: 118px;
     font-size: 72px;
-    line-height: 1;
     cursor: pointer;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
-    animation: partyBounce 2.4s ease-in-out infinite;
+    animation: partyBounce 2.8s ease-in-out infinite;
 }
-.party-emoji:active { transform: scale(1.35) rotate(-12deg); animation: none; }
+.party-emoji::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 45%, #ffffff 0%, rgba(238,241,230,0.95) 55%, rgba(138,154,107,0.18) 100%);
+    box-shadow: 0 10px 26px rgba(85,100,63,0.22), inset 0 0 0 1px rgba(138,154,107,0.25);
+    z-index: 0;
+}
+.party-emoji img {
+    position: relative;
+    z-index: 1;
+    width: 104px;
+    height: 104px;
+    margin-top: 7px;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 8px rgba(51,66,47,0.25));
+    pointer-events: none;
+}
+.party-emoji:active { transform: scale(1.18) rotate(-8deg); animation: none; }
 .party-emoji.pop { animation: partyPop .5s ease; }
 
 @keyframes partyBounce {
@@ -214,7 +237,7 @@ body {
 
 /* ---------- Nuestro viaje (3 polaroids) ---------- */
 
-.trip { margin: 6px 0 6px; }
+.trip { margin: 44px 0 6px; }
 
 .trip-title {
     font-family: "Cormorant Garamond", serif;
@@ -511,9 +534,8 @@ body {
 
         <div class="names">Camilo &amp; Verónica</div>
         <div class="glyph">&#10087;</div>
-        <div class="party-emoji" id="party-emoji" role="button" tabindex="0" aria-label="Toca para celebrar">🎉</div>
+        <div class="party-emoji" id="party-emoji" role="button" tabindex="0" aria-label="Toca para celebrar"><img id="party-img" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f389/512.webp" alt="🎉" width="104" height="104"></div>
         <div class="subtitle">¡Acompáñennos a festejar nuestra boda!</div>
-        <div class="party-hint">TOCA EL EMOJI PARA CELEBRAR</div>
 
         <div class="trip">
             <div class="eyebrow">NUESTRO VIAJE</div>
@@ -690,7 +712,14 @@ document.getElementById('invitation-button').addEventListener('click', function 
 
 // ---------- Emoji de fiesta con confeti ----------
 (function () {
+    // Emojis animados (Noto Emoji de Google). Si no cargan, se usa el emoji de texto.
     const emojis = ['🎉', '🥂', '💍', '🎊', '💐', '🕊️'];
+    const codigos = ['1f389', '1f942', '1f48d', '1f38a', '1f490', '1f54a'];
+    const urlEmoji = c => 'https://fonts.gstatic.com/s/e/notoemoji/latest/' + c + '/512.webp';
+    const img = document.getElementById('party-img');
+    img.onerror = function () { el.textContent = emojis[index]; };
+    // Precarga los demás poco después de abrir la página
+    setTimeout(function () { codigos.slice(1).forEach(function (c) { new Image().src = urlEmoji(c); }); }, 3000);
     const pieces = ['🎉', '🎊', '✨', '💚', '🌿', '🥂'];
     const el = document.getElementById('party-emoji');
     let index = 0;
@@ -720,7 +749,8 @@ document.getElementById('invitation-button').addEventListener('click', function 
 
     function celebrate() {
         index = (index + 1) % emojis.length;
-        el.textContent = emojis[index];
+        if (img.isConnected) { img.alt = emojis[index]; img.src = urlEmoji(codigos[index]); }
+        else { el.textContent = emojis[index]; }
         el.classList.remove('pop');
         void el.offsetWidth; // reinicia la animación
         el.classList.add('pop');
@@ -728,7 +758,23 @@ document.getElementById('invitation-button').addEventListener('click', function 
         confetti(r.left + r.width / 2, r.top + r.height / 2);
     }
 
-    el.addEventListener('click', celebrate);
+    el.addEventListener('click', function () { celebrate(); reiniciarAuto(); });
+
+    // El emoji se activa solo: primero a los 1.2 s y luego cada 5 s mientras se ve en pantalla
+    const reducido = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let auto = null;
+    function visible() {
+        const r = el.getBoundingClientRect();
+        return !document.hidden && r.bottom > 0 && r.top < window.innerHeight;
+    }
+    function reiniciarAuto() {
+        if (reducido) return;
+        clearInterval(auto);
+        auto = setInterval(function () { if (visible()) celebrate(); }, 5000);
+    }
+    if (!reducido) {
+        setTimeout(function () { if (visible()) celebrate(); reiniciarAuto(); }, 1200);
+    }
     el.addEventListener('keydown', function (ev) {
         if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); celebrate(); }
     });
