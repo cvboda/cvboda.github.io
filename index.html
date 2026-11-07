@@ -212,6 +212,128 @@ body {
 
 .seal svg { width: 24px; height: 24px; }
 
+/* ---------- Nuestro viaje (3 polaroids) ---------- */
+
+.trip { margin: 46px 0 6px; }
+
+.trip-title {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 1.2;
+    margin: 4px 0 4px;
+}
+
+.trip-sub { font-size: 14px; color: var(--ink-soft); margin-bottom: 26px; }
+
+.trip-board { position: relative; padding: 6px 0 4px; }
+
+.trip-route {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.trip-route path {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 1.6;
+    stroke-dasharray: 2 7;
+    stroke-linecap: round;
+}
+
+.trip-item {
+    position: relative;
+    z-index: 1;
+    width: 188px;
+    margin-bottom: 34px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    opacity: 0;
+    transform: translateY(34px) rotate(0deg) scale(.94);
+    transition: opacity .8s ease, transform .9s cubic-bezier(.2,.8,.2,1);
+}
+.trip-item:last-child { margin-bottom: 6px; }
+
+.trip-item.left  { margin-left: 2px;  --rot: -5deg; }
+.trip-item.right { margin-left: auto; margin-right: 2px; --rot: 4deg; }
+.trip-item.mid   { margin-left: 34px; --rot: -2.5deg; width: 210px; }
+
+.trip-item.show { opacity: 1; transform: translateY(0) rotate(var(--rot)) scale(1); }
+.trip-item.show:hover,
+.trip-item.show.lift { transform: translateY(-6px) rotate(0deg) scale(1.06); z-index: 3; transition-duration: .35s; }
+
+.trip-item .polaroid { transform: none; padding: 10px 10px 12px; }
+.trip-item .polaroid img { aspect-ratio: 4 / 5; object-position: center 35%; }
+.trip-item.mid .polaroid img { aspect-ratio: 1 / 1; object-position: center 40%; }
+
+.trip-item .washi { width: 70px; height: 22px; top: -11px; }
+.trip-item.right .washi { transform: translateX(-50%) rotate(-4deg); background: repeating-linear-gradient(45deg, #e9dfc4, #e9dfc4 6px, #ddd0ac 6px, #ddd0ac 12px); }
+
+.trip-cap {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 19px;
+    color: var(--ink);
+    margin-top: 10px;
+    line-height: 1.1;
+}
+.trip-cap small {
+    display: block;
+    font-family: "EB Garamond", serif;
+    font-style: normal;
+    font-size: 9.5px;
+    letter-spacing: 2.5px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+}
+
+.trip-stamp {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1.5px dashed var(--gold-deep);
+    background: rgba(250,248,242,.92);
+    color: var(--gold-deep);
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(14deg);
+    z-index: 2;
+}
+.trip-item.right .trip-stamp { right: auto; left: -14px; transform: rotate(-12deg); }
+
+.trip-plane {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+    font-size: 20px;
+    transform: translate(-50%, -50%) rotate(100deg);
+    opacity: .85;
+    pointer-events: none;
+}
+
+.trip-end { margin-top: 18px; font-size: 15px; font-style: italic; color: var(--ink-soft); }
+
+@media (max-width: 380px) {
+    .trip-item { width: 160px; }
+    .trip-item.mid { width: 180px; margin-left: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .trip-item { transition: none; opacity: 1; transform: rotate(var(--rot)); }
+}
+
 /* ---------- Mensaje ---------- */
 
 .message {
@@ -405,6 +527,49 @@ body {
             </div>
         </div>
 
+        <div class="trip">
+            <div class="eyebrow">NUESTRO VIAJE</div>
+            <div class="trip-title">Lugares que nos trajeron hasta aquí</div>
+            <div class="trip-sub">Toca una foto para acercarla</div>
+
+            <div class="trip-board" id="trip-board">
+                <svg class="trip-route" viewBox="0 0 356 700" preserveAspectRatio="none" aria-hidden="true">
+                    <path d="M95 150 C 330 190, 330 300, 190 370 S 20 470, 262 560"/>
+                </svg>
+
+                <div class="trip-item left" tabindex="0">
+                    <div class="polaroid">
+                        <div class="washi"></div>
+                        <img src="foto2.jpeg" alt="Camilo y Verónica frente al Palau Nacional en Barcelona" loading="lazy">
+                        <div class="trip-cap">Barcelona<small>CAPÍTULO I</small></div>
+                    </div>
+                    <div class="trip-stamp">BCN</div>
+                </div>
+
+                <div class="trip-item mid" tabindex="0">
+                    <div class="polaroid">
+                        <div class="washi"></div>
+                        <img src="foto3.jpeg" alt="Camilo y Verónica junto al mar" loading="lazy">
+                        <div class="trip-cap">Frente al mar<small>CAPÍTULO II</small></div>
+                    </div>
+                    <div class="trip-stamp">&#9875;</div>
+                </div>
+
+                <div class="trip-item right" tabindex="0">
+                    <div class="polaroid">
+                        <div class="washi"></div>
+                        <img src="foto4.jpeg" alt="Camilo y Verónica frente a la Torre Eiffel en París" loading="lazy">
+                        <div class="trip-cap">París<small>CAPÍTULO III</small></div>
+                    </div>
+                    <div class="trip-stamp">PAR</div>
+                </div>
+
+                <div class="trip-plane" id="trip-plane">&#9992;&#65039;</div>
+            </div>
+
+            <div class="trip-end">…y el mejor destino apenas comienza ❧</div>
+        </div>
+
         <div class="message">
             Para nosotros, el éxito de este viaje no está solo en llegar juntos,
             sino en tener a nuestra familia y amigos celebrándolo a nuestro lado.
@@ -556,6 +721,57 @@ document.getElementById('invitation-button').addEventListener('click', function 
     el.addEventListener('keydown', function (ev) {
         if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); celebrate(); }
     });
+})();
+
+
+// ---------- Fotos del viaje: aparecen al hacer scroll, se acercan al tocar ----------
+(function () {
+    const items = document.querySelectorAll('.trip-item');
+    const board = document.getElementById('trip-board');
+    const plane = document.getElementById('trip-plane');
+    const path = board.querySelector('.trip-route path');
+
+    if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); }
+            });
+        }, { threshold: 0.2 });
+        items.forEach(function (it, i) { it.style.transitionDelay = (i * 0.12) + 's'; io.observe(it); });
+    } else {
+        items.forEach(function (it) { it.classList.add('show'); });
+    }
+
+    items.forEach(function (it) {
+        function toggle() {
+            const was = it.classList.contains('lift');
+            items.forEach(function (o) { o.classList.remove('lift'); });
+            if (!was) it.classList.add('lift');
+        }
+        it.addEventListener('click', toggle);
+        it.addEventListener('keydown', function (ev) {
+            if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); toggle(); }
+        });
+    });
+
+    // El avioncito recorre la ruta punteada mientras haces scroll
+    function movePlane() {
+        const r = board.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const p = Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (r.height + vh * 0.4)));
+        const len = path.getTotalLength();
+        const pt = path.getPointAtLength(len * p);
+        const pt2 = path.getPointAtLength(Math.min(len, len * p + 2));
+        const box = path.ownerSVGElement.getBoundingClientRect();
+        const sx = box.width / 356, sy = box.height / 700;
+        plane.style.left = (pt.x * sx) + 'px';
+        plane.style.top = (pt.y * sy) + 'px';
+        const ang = Math.atan2((pt2.y - pt.y) * sy, (pt2.x - pt.x) * sx) * 180 / Math.PI;
+        plane.style.transform = 'translate(-50%,-50%) rotate(' + (ang + 45) + 'deg)';
+    }
+    window.addEventListener('scroll', movePlane, { passive: true });
+    window.addEventListener('resize', movePlane);
+    movePlane();
 })();
 
 
