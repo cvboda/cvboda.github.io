@@ -48,8 +48,9 @@ body {
     body { padding: 18px 10px; }
     .card { padding: 36px 20px 0; }
     .names { font-size: 32px; }
-    .date-panel { margin: 0 -20px 30px; padding: 18px 14px; gap: 12px; }
-    .date-num { font-size: 38px; }
+    .date-panel { margin: 0 -20px 26px; padding: 18px 14px 16px; }
+    .dp-num { font-size: 48px; }
+    .dp-sprig { display: none; }
     .footer { margin: 40px -20px 0; }
 }
 
@@ -395,38 +396,75 @@ body {
 /* ---------- Panel de fecha ---------- */
 
 .date-panel {
-    background: var(--taupe);
+    background: radial-gradient(ellipse at 50% 0%, #4a5d3f 0%, #34422d 55%, #27311f 100%);
     color: #f3ead9;
-    padding: 22px 20px;
-    margin: 0 -32px 30px;
+    padding: 20px 20px 18px;
+    margin: 0 -32px 26px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 10px 24px rgba(39,49,31,.22);
+}
+.date-panel::before {
+    content: "";
+    position: absolute;
+    inset: 7px;
+    border: 1px solid rgba(195,209,174,.32);
+    pointer-events: none;
+}
+
+.dp-sprig {
+    position: absolute;
+    top: 50%;
+    width: 34px;
+    height: 72px;
+    transform: translateY(-50%);
+    fill: none;
+    stroke: #c3d1ae;
+    stroke-width: 1.3;
+    stroke-linecap: round;
+    opacity: .38;
+}
+.dp-sprig.l { left: 20px; }
+.dp-sprig.r { right: 20px; transform: translateY(-50%) scaleX(-1); }
+
+.dp-day {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 18px;
-    position: relative;
-    z-index: 2;
-}
-
-.date-num {
-    font-family: "EB Garamond", serif;
-    font-size: 46px;
-    line-height: 1;
-    color: #f3ead9;
-}
-
-.date-text {
-    text-align: left;
-    font-size: 13px;
-    letter-spacing: 1px;
+    gap: 10px;
+    font-size: 10.5px;
+    letter-spacing: 4px;
     color: #c3d1ae;
+    position: relative;
+}
+.dp-day span {
+    width: 24px;
+    height: 1px;
+    background: rgba(195,209,174,.55);
 }
 
-.date-text .heart {
-    color: var(--gold);
-    width: 12px;
-    height: 12px;
-    vertical-align: -1px;
+.dp-num {
+    font-size: 54px;
+    line-height: 1;
+    margin: 4px 0 3px;
+    color: #f6eddc;
+    text-shadow: 0 3px 14px rgba(0,0,0,.28);
+    position: relative;
 }
+
+.dp-month {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: #c3d1ae;
+    position: relative;
+}
+.dp-month svg { width: 10px; height: 10px; color: #b9a46a; flex: none; }
 
 /* ---------- Título de fecha ---------- */
 
@@ -639,8 +677,23 @@ body {
 
         <div class="date-title" id="fecha">RECUERDA LA FECHA</div>
         <div class="date-panel">
-            <div class="date-num">24</div>
-            <div class="date-text">ENERO<br><svg class="heart" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.2-4.6-9.4-9.2A5.4 5.4 0 0 1 12 6.1a5.4 5.4 0 0 1 9.4 5.7C19.200 16.400 12 21 12 21z"/></svg> 2027</div>
+            <svg class="dp-sprig l" viewBox="0 0 78 130" aria-hidden="true">
+                <path d="M10 128 C 14 90, 22 55, 40 20"/>
+                <path d="M16 108 C 24 104, 30 99, 33 92"/>
+                <path d="M12 88 C 20 85, 26 80, 29 73"/>
+                <path d="M20 66 C 27 63, 32 58, 35 51"/>
+                <path d="M27 44 C 33 41, 37 37, 39 31"/>
+            </svg>
+            <svg class="dp-sprig r" viewBox="0 0 78 130" aria-hidden="true">
+                <path d="M10 128 C 14 90, 22 55, 40 20"/>
+                <path d="M16 108 C 24 104, 30 99, 33 92"/>
+                <path d="M12 88 C 20 85, 26 80, 29 73"/>
+                <path d="M20 66 C 27 63, 32 58, 35 51"/>
+                <path d="M27 44 C 33 41, 37 37, 39 31"/>
+            </svg>
+            <div class="dp-day"><span></span>DOMINGO<span></span></div>
+            <div class="dp-num">24</div>
+            <div class="dp-month">ENERO <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.2-4.6-9.4-9.2A5.4 5.4 0 0 1 12 6.1a5.4 5.4 0 0 1 9.4 5.7C19.2 16.4 12 21 12 21z"/></svg> 2027</div>
         </div>
 
         <div class="countdown" id="countdown">
