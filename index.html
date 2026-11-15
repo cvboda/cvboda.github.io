@@ -140,52 +140,53 @@ body {
 .direct-btn {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    margin: 12px 0 4px;
-    padding: 14px 34px;
+    gap: 8px;
+    margin: 10px 0 2px;
+    padding: 9px 24px;
     background: transparent;
     color: var(--gold-deep);
     border: 1px solid var(--gold-deep);
     border-radius: 999px;
-    font-size: 17px;
+    font-size: 15px;
     letter-spacing: 1px;
     text-decoration: none;
     -webkit-tap-highlight-color: transparent;
     transition: background .25s ease, color .25s ease, border-color .25s ease, transform .15s ease;
 }
-.direct-btn svg { width: 18px; height: 18px; transition: transform .25s ease; }
+.direct-btn svg { width: 15px; height: 15px; transition: transform .25s ease; }
 
-/* Botón fijo abajo "Ver mi invitación" */
+/* Botón fijo abajo "Ver mi invitación": pastilla pequeña, sin fondo de barra */
 .sticky-open {
     position: fixed;
     left: 0; right: 0; bottom: 0;
     z-index: 50;
-    padding: 14px 20px calc(14px + env(safe-area-inset-bottom, 0px));
-    background: linear-gradient(to top, var(--cream) 60%, rgba(250,248,242,0));
+    padding: 0 20px calc(16px + env(safe-area-inset-bottom, 0px));
     display: flex;
     justify-content: center;
     pointer-events: none;
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(14px);
     transition: opacity .3s ease, transform .3s ease;
 }
 .sticky-open.show { opacity: 1; transform: translateY(0); }
 .sticky-open button {
     pointer-events: none;
-    width: 100%;
-    max-width: 380px;
-    padding: 15px 14px;
-    background: var(--ink);
-    color: var(--cream);
-    border: none;
-    border-radius: 4px;
+    padding: 10px 26px;
+    background: var(--cream);
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    border-radius: 999px;
     font-family: "EB Garamond", Georgia, serif;
-    font-size: 17px;
+    font-size: 15px;
     letter-spacing: 1px;
     cursor: pointer;
-    box-shadow: 0 6px 18px rgba(51,66,47,.32);
+    box-shadow: 0 4px 14px rgba(51,66,47,.30);
+    -webkit-tap-highlight-color: transparent;
+    transition: background .2s ease, color .2s ease;
 }
 .sticky-open.show button { pointer-events: auto; }
+.sticky-open button:active { background: var(--ink); color: var(--cream); }
+@media (hover: hover) { .sticky-open button:hover { background: var(--ink); color: var(--cream); } }
 /* Al acercar el cursor, o al tocarlo en el celular, se pone oscuro */
 .direct-btn:active, .direct-btn:focus-visible {
     background: var(--ink);
