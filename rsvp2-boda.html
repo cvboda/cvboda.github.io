@@ -698,7 +698,8 @@ const invitadoParam = urlParams.get('invitado');
 
 function mostrarInvitado(nombre) {
   document.getElementById('guest-name').textContent = nombre;
-  document.getElementById('guest-box').classList.remove('hidden');
+  // La caja "Invitación Especial Para" ya no se muestra aquí: el invitado ya vio su nombre en la primera página.
+  // El nombre sigue llenando el campo de confirmación.
   document.getElementById('name').value = nombre;
 }
 
