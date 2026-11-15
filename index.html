@@ -33,7 +33,6 @@
 * { box-sizing: border-box; }
 body, button, input, textarea { font-variant-numeric: lining-nums; }
 html, body { margin: 0; max-width: 100%; overflow-x: hidden; }
-html { scroll-behavior: smooth; }
 
 body {
     font-family: "EB Garamond", Georgia, serif;
@@ -119,83 +118,89 @@ body {
     max-width: 300px;
 }
 
-.party-emoji {
-    position: relative;
-    display: inline-block;
-    width: 118px;
-    height: 118px;
-    margin: 12px 0 14px;
-    line-height: 118px;
-    font-size: 72px;
-    cursor: pointer;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    animation: partyBounce 2.8s ease-in-out infinite;
-}
-.party-emoji::before {
-    content: "";
-    position: absolute;
-    inset: -6px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 50% 45%, #ffffff 0%, rgba(238,241,230,0.95) 55%, rgba(138,154,107,0.18) 100%);
-    box-shadow: 0 10px 26px rgba(85,100,63,0.22), inset 0 0 0 1px rgba(138,154,107,0.25);
-    z-index: 0;
-}
-.party-emoji img {
-    position: relative;
-    z-index: 1;
-    width: 104px;
-    height: 104px;
-    margin-top: 7px;
-    object-fit: contain;
-    filter: drop-shadow(0 6px 8px rgba(51,66,47,0.25));
-    pointer-events: none;
-}
-.party-emoji:active { transform: scale(1.18) rotate(-8deg); animation: none; }
-.party-emoji.pop { animation: partyPop .5s ease; }
 
-@keyframes partyBounce {
-    0%, 100% { transform: translateY(0) rotate(0); }
-    20% { transform: translateY(-10px) rotate(-8deg); }
-    40% { transform: translateY(0) rotate(0); }
-    60% { transform: translateY(-6px) rotate(8deg); }
-    80% { transform: translateY(0) rotate(0); }
-}
-@keyframes partyPop {
-    0% { transform: scale(1); }
-    40% { transform: scale(1.5) rotate(-15deg); }
-    100% { transform: scale(1); }
-}
-
-.party-hint {
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--gold-deep);
-    margin-bottom: 28px;
-}
-
-.confetti-piece {
-    position: fixed;
-    z-index: 9999;
-    pointer-events: none;
-    line-height: 1;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .party-emoji { animation: none; }
-}
 
 /* ---------- Atajo a los detalles ---------- */
 
-.skip-link {
-    display: inline-block;
-    margin: 4px 0 6px;
-    font-size: 13px;
-    letter-spacing: 1.5px;
+.thin-divider {
+    width: 70px;
+    height: 1px;
+    margin: 26px auto 22px;
+    background: linear-gradient(90deg, transparent, var(--gold-deep), transparent);
+}
+
+.direct-link {
+    margin: 14px auto 0;
+    max-width: 300px;
+    font-size: 14px;
+    line-height: 1.6;
+    font-style: italic;
+    color: var(--ink-soft);
+}
+.direct-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0 4px;
+    padding: 14px 34px;
+    background: transparent;
     color: var(--gold-deep);
+    border: 1px solid var(--gold-deep);
+    border-radius: 999px;
+    font-size: 17px;
+    letter-spacing: 1px;
     text-decoration: none;
-    border-bottom: 1px solid var(--gold-deep);
-    padding-bottom: 2px;
+    -webkit-tap-highlight-color: transparent;
+    transition: background .25s ease, color .25s ease, border-color .25s ease, transform .15s ease;
+}
+.direct-btn svg { width: 18px; height: 18px; transition: transform .25s ease; }
+
+/* Botón fijo abajo "Ver mi invitación" */
+.sticky-open {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 50;
+    padding: 14px 20px calc(14px + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(to top, var(--cream) 60%, rgba(250,248,242,0));
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .3s ease, transform .3s ease;
+}
+.sticky-open.show { opacity: 1; transform: translateY(0); }
+.sticky-open button {
+    pointer-events: none;
+    width: 100%;
+    max-width: 380px;
+    padding: 15px 14px;
+    background: var(--ink);
+    color: var(--cream);
+    border: none;
+    border-radius: 4px;
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 17px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(51,66,47,.32);
+}
+.sticky-open.show button { pointer-events: auto; }
+/* Al acercar el cursor, o al tocarlo en el celular, se pone oscuro */
+.direct-btn:active, .direct-btn:focus-visible {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--cream);
+}
+.direct-btn:active { transform: scale(.97); }
+.direct-btn:active svg, .direct-btn:focus-visible svg { transform: translateX(3px); }
+@media (hover: hover) {
+    .direct-btn:hover {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: var(--cream);
+    }
+    .direct-btn:hover svg { transform: translateX(3px); }
 }
 
 /* ---------- Foto polaroid vertical ---------- */
@@ -356,11 +361,14 @@ body {
     z-index: 2;
     left: 50%;
     top: 50%;
-    font-size: 20px;
+    width: 24px;
+    height: 24px;
+    color: var(--gold-deep);
     transform: translate(-50%, -50%) rotate(100deg);
-    opacity: .85;
+    opacity: .9;
     pointer-events: none;
 }
+.trip-plane svg { width: 100%; height: 100%; display: block; }
 
 .trip-end { margin-top: 18px; font-size: 15px; font-style: italic; color: var(--ink-soft); }
 
@@ -414,7 +422,9 @@ body {
 
 .date-text .heart {
     color: var(--gold);
-    font-size: 14px;
+    width: 12px;
+    height: 12px;
+    vertical-align: -1px;
 }
 
 /* ---------- Título de fecha ---------- */
@@ -548,11 +558,10 @@ body {
         <div class="eyebrow">UNA INVITACIÓN ESPECIAL</div>
 
         <div class="names">Camilo &amp; Verónica</div>
-        <div class="glyph">&#10087;</div>
-        <div class="party-emoji" id="party-emoji" role="button" tabindex="0" aria-label="Toca para celebrar"><img id="party-img" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f389/512.webp" alt="🎉" width="104" height="104"></div>
+        <div class="thin-divider" aria-hidden="true"></div>
         <div class="subtitle">¡Acompáñennos a festejar nuestra boda!</div>
-        <a class="skip-link" href="#fecha">Ir directo a la fecha y detalles ↓</a>
-
+        <div class="direct-link">¿Prefieres ir directo a la invitación?</div>
+        <a href="#" id="direct-link" class="direct-btn">Da clic acá<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <div class="trip">
             <div class="eyebrow">NUESTRO VIAJE</div>
             <div class="trip-title">Lugares que nos trajeron hasta aquí</div>
@@ -587,7 +596,7 @@ body {
                         <img src="foto3.jpeg" alt="Camilo y Verónica junto al mar" loading="lazy">
                         <div class="trip-cap">Frente al mar<small>CAPÍTULO III</small></div>
                     </div>
-                    <div class="trip-stamp">&#9875;</div>
+                    <div class="trip-stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:22px;height:22px"><circle cx="12" cy="5" r="2.2"/><path d="M12 7.2V21M8 11h8M5 14c0 4 3 7 7 7s7-3 7-7"/></svg></div>
                 </div>
 
                 <div class="trip-item right" tabindex="0">
@@ -613,7 +622,7 @@ body {
                     </div>
                 </div>
 
-                <div class="trip-plane" id="trip-plane">&#9992;&#65039;</div>
+                <div class="trip-plane" id="trip-plane"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 2.5L10.5 13.5"/><path d="M21.5 2.5L15 21.5l-4.5-8-8-4.5 19-6.5z"/></svg></div>
             </div>
 
         <div class="trip-end">…y el mejor destino apenas comienza ❧</div>
@@ -630,7 +639,7 @@ body {
         <div class="date-title" id="fecha">RECUERDA LA FECHA</div>
         <div class="date-panel">
             <div class="date-num">24</div>
-            <div class="date-text">ENERO<br><span class="heart">&#10084;</span> 2027</div>
+            <div class="date-text">ENERO<br><svg class="heart" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.2-4.6-9.4-9.2A5.4 5.4 0 0 1 12 6.1a5.4 5.4 0 0 1 9.4 5.7C19.200 16.400 12 21 12 21z"/></svg> 2027</div>
         </div>
 
         <div class="countdown" id="countdown">
@@ -650,6 +659,8 @@ body {
 
 </div>
 
+<div class="sticky-open" id="sticky-open"><button type="button" id="sticky-open-btn">Ver mi invitación</button></div>
+
 <script>
 
 const GOOGLE_SCRIPT_URL =
@@ -666,6 +677,9 @@ if (!id && PERMITIR_SIN_ID) { id = '1'; }
 if (!id) {
     document.getElementById('guest-name').textContent = '¡Tú y tu familia!';
     document.getElementById('invitation-button').style.display = 'none';
+    // Sin código de invitado no hay invitación que abrir: se esconde también el atajo de arriba
+    document.getElementById('direct-link').style.display = 'none';
+    document.querySelector('.direct-link').style.display = 'none';
 } else fetch(GOOGLE_SCRIPT_URL + '?id=' + encodeURIComponent(id))
     .then(response => {
         if (!response.ok) {
@@ -726,74 +740,40 @@ document.getElementById('invitation-button').addEventListener('click', function 
 });
 
 
-// ---------- Emoji de fiesta con confeti ----------
+// ---------- Atajo: ir directo a la invitación ----------
+document.getElementById('direct-link').addEventListener('click', function (ev) {
+    ev.preventDefault();
+    const btn = document.getElementById('invitation-button');
+    const dest = btn.getAttribute('href');
+    if (dest && dest !== '#' && btn.style.display !== 'none') {
+        btn.click();   // abre la invitación igual que el botón de abajo
+    } else {
+        document.getElementById('fecha').scrollIntoView({ behavior: 'smooth' });
+    }
+});
+
+
+// ---------- Botón fijo "Ver mi invitación" ----------
+// Aparece al bajar por las fotos (cuando ya no se ve el botón de arriba ni el de abajo),
+// para no tener que volver al principio. Solo si la invitación ya cargó.
 (function () {
-    // Emojis animados (Noto Emoji de Google). Si no cargan, se usa el emoji de texto.
-    const emojis = ['🎉', '🥂', '💍', '🎊', '💐', '🕊️'];
-    const codigos = ['1f389', '1f942', '1f48d', '1f38a', '1f490', '1f54a'];
-    const urlEmoji = c => 'https://fonts.gstatic.com/s/e/notoemoji/latest/' + c + '/512.webp';
-    const img = document.getElementById('party-img');
-    img.onerror = function () { el.textContent = emojis[index]; };
-    // Precarga los demás poco después de abrir la página
-    setTimeout(function () { codigos.slice(1).forEach(function (c) { new Image().src = urlEmoji(c); }); }, 3000);
-    const pieces = ['🎉', '🎊', '✨', '💚', '🌿', '🥂'];
-    const el = document.getElementById('party-emoji');
-    let index = 0;
-
-    function confetti(x, y) {
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        for (let i = 0; i < 28; i++) {
-            const p = document.createElement('span');
-            p.className = 'confetti-piece';
-            p.textContent = pieces[Math.floor(Math.random() * pieces.length)];
-            p.style.left = x + 'px';
-            p.style.top = y + 'px';
-            p.style.fontSize = (14 + Math.random() * 14) + 'px';
-            document.body.appendChild(p);
-            const angle = Math.random() * Math.PI * 2;
-            const dist = 60 + Math.random() * 130;
-            const dx = Math.cos(angle) * dist;
-            const dy = Math.sin(angle) * dist - 40;
-            const anim = p.animate([
-                { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
-                { transform: 'translate(' + dx + 'px,' + dy + 'px) rotate(' + (Math.random() * 540 - 270) + 'deg)', opacity: 1, offset: 0.55 },
-                { transform: 'translate(' + (dx * 1.15) + 'px,' + (dy + 160) + 'px) rotate(' + (Math.random() * 720 - 360) + 'deg)', opacity: 0 }
-            ], { duration: 1100 + Math.random() * 600, easing: 'ease-out' });
-            anim.onfinish = () => p.remove();
-        }
-    }
-
-    function celebrate() {
-        index = (index + 1) % emojis.length;
-        if (img.isConnected) { img.alt = emojis[index]; img.src = urlEmoji(codigos[index]); }
-        else { el.textContent = emojis[index]; }
-        el.classList.remove('pop');
-        void el.offsetWidth; // reinicia la animación
-        el.classList.add('pop');
+    const bar = document.getElementById('sticky-open');
+    const topBtn = document.getElementById('direct-link');
+    const mainBtn = document.getElementById('invitation-button');
+    function inView(el) {
+        if (!el || el.style.display === 'none') return false;
         const r = el.getBoundingClientRect();
-        confetti(r.left + r.width / 2, r.top + r.height / 2);
+        return r.bottom > 0 && r.top < window.innerHeight;
     }
-
-    el.addEventListener('click', function () { celebrate(); reiniciarAuto(); });
-
-    // El emoji se activa solo: primero a los 1.2 s y luego cada 5 s mientras se ve en pantalla
-    const reducido = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let auto = null;
-    function visible() {
-        const r = el.getBoundingClientRect();
-        return !document.hidden && r.bottom > 0 && r.top < window.innerHeight;
+    function update() {
+        const dest = mainBtn.getAttribute('href');
+        const ready = dest && dest !== '#' && mainBtn.style.display !== 'none';
+        bar.classList.toggle('show', !!ready && !inView(topBtn) && !inView(mainBtn));
     }
-    function reiniciarAuto() {
-        if (reducido) return;
-        clearInterval(auto);
-        auto = setInterval(function () { if (visible()) celebrate(); }, 5000);
-    }
-    if (!reducido) {
-        setTimeout(function () { if (visible()) celebrate(); reiniciarAuto(); }, 1200);
-    }
-    el.addEventListener('keydown', function (ev) {
-        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); celebrate(); }
-    });
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    document.getElementById('sticky-open-btn').addEventListener('click', function () { mainBtn.click(); });
+    update();
 })();
 
 
