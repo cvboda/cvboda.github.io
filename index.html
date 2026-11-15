@@ -15,7 +15,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 
 <style>
 
@@ -31,7 +31,9 @@
 }
 
 * { box-sizing: border-box; }
+body, button, input, textarea { font-variant-numeric: lining-nums; }
 html, body { margin: 0; max-width: 100%; overflow-x: hidden; }
+html { scroll-behavior: smooth; }
 
 body {
     font-family: "EB Garamond", Georgia, serif;
@@ -92,7 +94,7 @@ body {
 }
 
 .names {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "EB Garamond", serif;
     font-style: italic;
     font-weight: 500;
     font-size: 40px;
@@ -107,7 +109,7 @@ body {
 }
 
 .subtitle {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "EB Garamond", serif;
     font-size: 30px;
     font-style: italic;
     font-weight: 500;
@@ -183,6 +185,19 @@ body {
     .party-emoji { animation: none; }
 }
 
+/* ---------- Atajo a los detalles ---------- */
+
+.skip-link {
+    display: inline-block;
+    margin: 4px 0 6px;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    color: var(--gold-deep);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold-deep);
+    padding-bottom: 2px;
+}
+
 /* ---------- Foto polaroid vertical ---------- */
 
 .polaroid-wrap {
@@ -240,7 +255,7 @@ body {
 .trip { margin: 44px 0 6px; }
 
 .trip-title {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "EB Garamond", serif;
     font-style: italic;
     font-weight: 500;
     font-size: 28px;
@@ -299,7 +314,7 @@ body {
 .trip-item.right .washi { transform: translateX(-50%) rotate(-4deg); background: repeating-linear-gradient(45deg, #e9dfc4, #e9dfc4 6px, #ddd0ac 6px, #ddd0ac 12px); }
 
 .trip-cap {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "EB Garamond", serif;
     font-style: italic;
     font-size: 19px;
     color: var(--ink);
@@ -384,7 +399,7 @@ body {
 }
 
 .date-num {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "EB Garamond", serif;
     font-size: 46px;
     line-height: 1;
     color: #f3ead9;
@@ -421,7 +436,7 @@ body {
 }
 
 .guest {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "EB Garamond", serif;
     font-style: italic;
     font-size: 26px;
     margin-bottom: 32px;
@@ -470,7 +485,7 @@ body {
 }
 
 .cd-num {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "EB Garamond", serif;
     font-size: 30px;
     line-height: 1;
     color: var(--ink);
@@ -484,7 +499,7 @@ body {
 }
 
 .countdown-done {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "EB Garamond", serif;
     font-style: italic;
     font-size: 22px;
     color: var(--ink);
@@ -536,6 +551,7 @@ body {
         <div class="glyph">&#10087;</div>
         <div class="party-emoji" id="party-emoji" role="button" tabindex="0" aria-label="Toca para celebrar"><img id="party-img" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f389/512.webp" alt="🎉" width="104" height="104"></div>
         <div class="subtitle">¡Acompáñennos a festejar nuestra boda!</div>
+        <a class="skip-link" href="#fecha">Ir directo a la fecha y detalles ↓</a>
 
         <div class="trip">
             <div class="eyebrow">NUESTRO VIAJE</div>
@@ -611,7 +627,7 @@ body {
 
         <div class="guest" id="guest-name">Cargando...</div>
 
-        <div class="date-title">RECUERDA LA FECHA</div>
+        <div class="date-title" id="fecha">RECUERDA LA FECHA</div>
         <div class="date-panel">
             <div class="date-num">24</div>
             <div class="date-text">ENERO<br><span class="heart">&#10084;</span> 2027</div>
